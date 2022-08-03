@@ -116,6 +116,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#My DB
+DBConnector.java
+
 # Windows shortcuts
 *.lnk
 
