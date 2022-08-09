@@ -47,10 +47,10 @@ public class BankBookDAO implements BookDAO {
 		while (rs.next())
 		{
 			BankBookDTO bankBookDTO = new BankBookDTO();
-			bankBookDTO.setBOOKNUM(rs.getLong("BANKNUM"));
+			bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
 			bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
 			bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
-			bankBookDTO.setBOOKSALE(rs.getInt("BOOKSLAE"));
+			bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
 			ar.add(bankBookDTO);
 		}
 		
@@ -80,30 +80,37 @@ public class BankBookDAO implements BookDAO {
 		
 		Connection con = DBConnector.getConnection();
 		
-		String sql = "SELECT * FROM BANKBOOK WHERE BOOKNUM = ?";
+		String sql = "SELECT * FROM BANKBOOK WHERE BOOKNUM = ? ";
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		st.setLong(1, bankBookDTO.getBOOKNUM());
 		
 		ResultSet rs = st.executeQuery();
+		
 		while (rs.next()) {
-		bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
-		bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
-		bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
-		bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
+			bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
+			bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
+			bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
+			bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
 		}
 		
-		if (rs.next())	{
-			
-			System.out.println(bankBookDTO.getBOOKNUM());
-			System.out.println(bankBookDTO.getBOOKNAME());
-			System.out.println(bankBookDTO.getBOOKRATE());
-			System.out.println(bankBookDTO.getBOOKSALE());
-		}
-		else {
-			return null;
-		}
+//		if (rs.next())	{
+//			while (rs.next()) {
+//				bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
+//				bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
+//				bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
+//				bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
+//				}
+//			
+//			System.out.println(bankBookDTO.getBOOKNUM());
+//			System.out.println(bankBookDTO.getBOOKNAME());
+//			System.out.println(bankBookDTO.getBOOKRATE());
+//			System.out.println(bankBookDTO.getBOOKSALE());
+//		}
+//		else {
+//			return null;
+//		}
 		
 		return bankBookDTO;
 	}
