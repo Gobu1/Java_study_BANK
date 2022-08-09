@@ -1,4 +1,4 @@
-package com.iu.start.utill;
+package com.sh.start.utill;
 
 public class BankTradeDTO {
 	private int TRADENUM;

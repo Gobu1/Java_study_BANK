@@ -1,11 +1,11 @@
-package com.iu.start.BankMembers;
+package com.sh.start.BankMembers;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.iu.start.utill.DBConnector;
+import com.sh.start.utill.DBConnector;
 
 public class BankMembersDAO implements MembersDAO {
 	
@@ -27,11 +27,11 @@ public class BankMembersDAO implements MembersDAO {
 		while(rs.next())
 		{
 			BankMembersDTO bankMembersDTO = new BankMembersDTO();
-			bankMembersDTO.setUSERNAME(rs.getString("USERNAME"));
-			bankMembersDTO.setPASSWORD(rs.getString("PASSWORD"));
-			bankMembersDTO.setNAME(rs.getString("NAME"));
-			bankMembersDTO.setEMAIL(rs.getString("EMAIL"));
-			bankMembersDTO.setPHONE(rs.getString("PHONE"));
+			bankMembersDTO.setUsername(rs.getString("USERNAME"));
+			bankMembersDTO.setPassword(rs.getString("PASSWORD"));
+			bankMembersDTO.setName(rs.getString("NAME"));
+			bankMembersDTO.setEmail(rs.getString("EMAIL"));
+			bankMembersDTO.setName(rs.getString("PHONE"));
 			ar.add(bankMembersDTO);
 
 		}
@@ -55,11 +55,11 @@ public class BankMembersDAO implements MembersDAO {
 		
 		
 		
-		st.setString(1, bankMembersDTO.getNAME());
-		st.setString(2, bankMembersDTO.getPASSWORD());
-		st.setString(3, bankMembersDTO.getNAME());
-		st.setString(4, bankMembersDTO.getEMAIL());
-		st.setString(5, bankMembersDTO.getPHONE());
+		st.setString(1, bankMembersDTO.getUsername());
+		st.setString(2, bankMembersDTO.getPassword());
+		st.setString(3, bankMembersDTO.getName());
+		st.setString(4, bankMembersDTO.getEmail());
+		st.setString(5, bankMembersDTO.getName());
 		
 
 		int result = st.executeUpdate();

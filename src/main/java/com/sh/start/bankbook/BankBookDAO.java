@@ -1,11 +1,11 @@
-package com.iu.start.bankbook;
+package com.sh.start.bankbook;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.iu.start.utill.DBConnector;
+import com.sh.start.utill.DBConnector;
 
 public class BankBookDAO implements BookDAO {
 
@@ -21,9 +21,9 @@ public class BankBookDAO implements BookDAO {
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		st.setLong(1, millis);
-		st.setString(2, bankBookDTO.getBOOKNAME());
-		st.setDouble(3, bankBookDTO.getBOOKRATE());
-		st.setInt(4, bankBookDTO.getBOOKSALE());
+		st.setString(2, bankBookDTO.getBookname());
+		st.setDouble(3, bankBookDTO.getBookrate());
+		st.setInt(4, bankBookDTO.getBooksale());
 		
 		
 
@@ -47,10 +47,10 @@ public class BankBookDAO implements BookDAO {
 		while (rs.next())
 		{
 			BankBookDTO bankBookDTO = new BankBookDTO();
-			bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
-			bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
-			bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
-			bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
+			bankBookDTO.setBooknum(rs.getLong("BOOKNUM"));
+			bankBookDTO.setBookname(rs.getString("BOOKNAME"));
+			bankBookDTO.setBookrate(rs.getDouble("BOOKRATE"));
+			bankBookDTO.setBooksale(rs.getInt("BOOKSALE"));
 			ar.add(bankBookDTO);
 		}
 		
@@ -67,8 +67,8 @@ public class BankBookDAO implements BookDAO {
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		
-		st.setInt(1,bankBookDTO.getBOOKSALE());
-		st.setDouble(2, bankBookDTO.getBOOKRATE());
+		st.setInt(1,bankBookDTO.getBooksale());
+		st.setDouble(2, bankBookDTO.getBookrate());
 		
 		int result = st.executeUpdate();
 		
@@ -84,15 +84,17 @@ public class BankBookDAO implements BookDAO {
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		
-		st.setLong(1, bankBookDTO.getBOOKNUM());
+		
+		
+		st.setLong(1, bankBookDTO.getBooknum());
 		
 		ResultSet rs = st.executeQuery();
 		
 		while (rs.next()) {
-			bankBookDTO.setBOOKNUM(rs.getLong("BOOKNUM"));
-			bankBookDTO.setBOOKNAME(rs.getString("BOOKNAME"));
-			bankBookDTO.setBOOKRATE(rs.getDouble("BOOKRATE"));
-			bankBookDTO.setBOOKSALE(rs.getInt("BOOKSALE"));
+			bankBookDTO.setBooknum(rs.getLong("BOOKNUM"));
+			bankBookDTO.setBookname(rs.getString("BOOKNAME"));
+			bankBookDTO.setBookrate(rs.getDouble("BOOKRATE"));
+			bankBookDTO.setBooksale(rs.getInt("BOOKSALE"));
 		}
 		
 //		if (rs.next())	{
