@@ -1,10 +1,14 @@
 package com.sh.start.BankMembers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller 
 //이 클래스는 Controller역할, 
@@ -14,12 +18,36 @@ public class MemberController {
 	
 	// annotation
 	// @ : 설명+실행
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	public String getSearchByID() throws Exception {
+		System.out.println("서치 실행");
+		return "member/search";
+	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public String getSearchByID(BankMembersDTO bankMembersDTO, Model model) throws Exception {
+		System.out.println("post 서치 실행");
+		
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		ArrayList<BankMembersDTO> ar = bankMembersDAO.getSerachByID(bankMembersDTO.getUsername());
+		
+		model.addAttribute("list", ar);
+		return "member/list";
+	}
 	
 	// /member/login 
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 		System.out.println("로그인 실행");
 		return "member/login";
+		
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(BankMembersDTO bankMembersDTO) {
+		System.out.println("DB 로그인 실행");
+		// "redirect: 다시 접속할 url주소(절대경로,상대경로)"
+		return "redirect:../";
 		
 	}
 	
@@ -42,14 +70,14 @@ public class MemberController {
 //		bankMembersDTO.setNAME(request.getParameter("name"));
 //		bankMembersDTO.setEMAIL(request.getParameter("email"));
 //		bankMembersDTO.setPHONE(request.getParameter("phone"));
-		int s = bankMembersDAO.setJoin(bankMembersDTO);
-		if (s==1) {
-			System.out.println("정상 join");
-		}else {
-			System.out.println("작동하지않음");
-		}
-		
-		return "member/join";
+//		int s = bankMembersDAO.setJoin(bankMembersDTO);
+//		if (s==1) {
+//			System.out.println("정상 join");
+//		}else {
+//			System.out.println("작동하지않음");
+//		}
+//		
+		return "redirect:./login";
 	}
 
 }

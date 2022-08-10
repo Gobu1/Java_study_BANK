@@ -32,7 +32,13 @@
 		<%}%>
 	</tbody>
 	</table>
+	<form action="./list" method="post">
+		<div>
+		<input type="number" name="booknum">
+		<input type="submit" value="검색">
+		</div>
 	
+	</form>
 	
 	
 	

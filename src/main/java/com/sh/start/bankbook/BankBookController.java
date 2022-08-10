@@ -8,18 +8,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/bankbook/*")
 public class BankBookController {
 	
+	
+	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String add() {
+	public ModelAndView add() {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("add GET 실행");
-		return "bankbook/add";
+		mv.setViewName("bankbook/add");
+		return mv;
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(BankBookDTO bankBookDTO, HttpServletRequest request) throws Exception {
+	public String add(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("add Post 실행");
 		BankBookDAO bankBookDAO = new BankBookDAO();
 		int result = bankBookDAO.setBankBook(bankBookDTO);
@@ -32,6 +37,17 @@ public class BankBookController {
 		return "bankbook/add";
 	}
 	
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	public ModelAndView list(BankBookDTO bankBookDTO) throws Exception {
+		System.out.println("리스트검색");
+		BankBookDAO bankBookDAO = new BankBookDAO();
+		ModelAndView mv = new ModelAndView();
+		bankBookDAO.getDetail(bankBookDTO);
+		mv.addObject("detail",bankBookDTO);
+		mv.setViewName("bankbook/detail");
+		return mv;
+	}
+	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request) throws Exception {
 		System.out.println("리스트 목록");
@@ -42,6 +58,8 @@ public class BankBookController {
 		
 		return "bankbook/list";
 	}
+	
+	
 		
 	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String detail() {
@@ -49,11 +67,13 @@ public class BankBookController {
 		return "bankbook/detail";
 	}
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String detail(BankBookDTO bankBookDTO, HttpServletRequest request) throws Exception {
+	public ModelAndView detail(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("자세히");
+		ModelAndView mv = new ModelAndView();
 		BankBookDAO bankBookDAO = new BankBookDAO();
 		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
-		request.setAttribute("detail", bankBookDTO);
-		return "bankbook/detail";
+		mv.setViewName("bankbook/detail");
+		mv.addObject("detail",bankBookDTO);
+		return mv;
 	}
 }
