@@ -118,6 +118,7 @@ $RECYCLE.BIN/
 
 #My DB
 DBConnector.java
+target/
 
 # Windows shortcuts
 *.lnk
