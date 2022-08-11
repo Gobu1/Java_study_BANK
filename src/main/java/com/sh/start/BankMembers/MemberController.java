@@ -61,21 +61,21 @@ public class MemberController {
 	
 	// Post 
 	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String join(BankMembersDTO bankMembersDTO /*HttpServletRequest request, String username*/) throws Exception {
+	public String join(HttpServletRequest request, String username) throws Exception {
 		System.out.println("join POST 실행");
 		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-//		BankMembersDTO bankMembersDTO = new BankMembersDTO();
-//		bankMembersDTO.setUSERNAME(username);
-//		bankMembersDTO.setPASSWORD(request.getParameter("password"));
-//		bankMembersDTO.setNAME(request.getParameter("name"));
-//		bankMembersDTO.setEMAIL(request.getParameter("email"));
-//		bankMembersDTO.setPHONE(request.getParameter("phone"));
-//		int s = bankMembersDAO.setJoin(bankMembersDTO);
-//		if (s==1) {
-//			System.out.println("정상 join");
-//		}else {
-//			System.out.println("작동하지않음");
-//		}
+		BankMembersDTO bankMembersDTO = new BankMembersDTO();
+		bankMembersDTO.setUsername(username);
+		bankMembersDTO.setPassword(request.getParameter("password"));
+		bankMembersDTO.setName(request.getParameter("name"));
+		bankMembersDTO.setEmail(request.getParameter("email"));
+		bankMembersDTO.setPhone(request.getParameter("phone"));
+		int s = bankMembersDAO.setJoin(bankMembersDTO);
+		if (s==1) {
+			System.out.println("정상 join");
+		}else {
+			System.out.println("작동하지않음");
+		}
 //		
 		return "redirect:./login";
 	}
