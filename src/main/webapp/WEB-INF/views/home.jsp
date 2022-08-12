@@ -6,13 +6,13 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<h1>Home </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
 <%-- ${member empty} --%>
-<c:if test="${empty sessionScope.member}">
+<a href="./board/list.sh">글목록 보기</a>
+
+<%-- <c:if test="${empty sessionScope.member}">
 <a href="./member/login.sh">로그인</a>
 <a href="./member/join.sh">join</a><br>
 </c:if>
@@ -25,6 +25,6 @@
 <a href="./member/search.sh">search</a>
 <a href="./bankbook/add.sh">product add </a>
 <a href="./bankbook/list.sh">list</a>
-</c:if>
+</c:if> --%>
 </body>
 </html>

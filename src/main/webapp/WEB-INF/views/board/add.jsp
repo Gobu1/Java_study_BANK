@@ -7,15 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>SEARCH</h2>
-	<form action="./search.sh" method="post">
-		<div>
-		<input type="text" name="userName">
-		<input type="submit" value="검색">
-		</div>
-	
-	</form>
-
 
 </body>
 </html>
