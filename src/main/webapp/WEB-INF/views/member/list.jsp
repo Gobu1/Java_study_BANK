@@ -1,10 +1,7 @@
-<%@page import="org.springframework.ui.Model"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.sh.start.BankMembers.BankMembersDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <% Model model; %>
-    <% ArrayList<BankMembersDTO> ar = (ArrayList<BankMembersDTO>)request.getAttribute("list"); %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +17,32 @@
 			</tr>
 		</thead>
 	<tbody>
-		<% for(BankMembersDTO bankMembersDTO : ar){ %>
+	
+<%-- 	<c:forEach begin="0" end="10" var="i" step="2">
+		<h3>${pageScope.1}</h3>
+		</c:forEach> 
+ --%>		<c:forEach items="${requestScope.list}" var="dto">
 			<tr>
-				<td><%=bankMembersDTO.getUsername() %></td>
+				<td>${pageScope.dto.userName}</td>
+				<td>${pageScope.dto.name}</td>
+				<td>${pageScope.dto.email}</td>
+				<td>${pageScope.dto.phone}</td>
+			
+			
+			
+			</tr>
+		</c:forEach>
+		
+		<%-- <% for(BankMembersDTO bankMembersDTO : ar){ %>
+			<tr>
+				<td><%=bankMembersDTO.getUserName() %></td>
 				<td><%=bankMembersDTO.getName() %></td>
 				<td><%=bankMembersDTO.getEmail() %></td>
 				<td><%=bankMembersDTO.getPhone() %></td>
-		<%} %>
+		<%} %> --%>
 
 	</tbody>
-	
 	</table>
+	
 </body>
 </html>

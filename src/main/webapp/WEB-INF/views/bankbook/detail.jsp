@@ -1,7 +1,10 @@
 <%@page import="com.sh.start.bankbook.BankBookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%--
     <%BankBookDTO bankBookDTO = (BankBookDTO)request.getAttribute("detail"); %>
+    --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,22 +19,26 @@
 				<th>Booknum</th><th>Name</th><th>Rate</th>
 		</tr>
 	<tbody>
+		<%-- ${scope명.속성명.getter의 이름}
+			 getter의 이름 : getter 메서드에서 get을 지우고 첫글자를 소문자로 바꾼것--%>
 			<tr>
-				<td><%=bankBookDTO.getBooknum() %></td>
-				<td><%=bankBookDTO.getBookname() %> </td>
-				<td><%=bankBookDTO.getBookrate() %></td>
+				<td>${requestScope.detail.getBookNum()}
+				<td>${requestScope.detail.bookName}
+				<td>${detail.bookRate}</td>
 			</tr>
-			<%if(bankBookDTO.getBooksale()==1){ %>
-			<h3> 판매중</h3>
-			<%}else{   %>
-			<h3> 재고없음</h3>
-			<%} %>
+			
 	</tbody>
 	</table>
 	
 	
 	
-	<a href="/Study/member/login">login</a>
-	<a href="../member/join">join</a>
+	<a href="/Study/member/login.sh">login</a>
+	<a href="../member/join.sh">join</a>
+	
+	<a href="./list.sh">list</a>
+	<a href="./update.sh?bookNum=${detail.bookNum}">수정</a>
+	<c:if test="${not empty sessionScope.member}">
+	<a href="../bankAccount/add.sh?bookNum=${detail.bookNum}">계좌등록</a>
+	</c:if>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.sh.start.BankMembers;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,43 +17,59 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="/member/*")
 public class MemberController {
 	
+	
+	@RequestMapping(value = "logout.sh", method = RequestMethod.GET)
+	public String logout(HttpSession session)throws Exception{
+		System.out.println("GET 로그아웃");
+		session.invalidate();
+		return "redirect:../";
+	}
+	
+	
 	// annotation
 	// @ : 설명+실행
-	@RequestMapping(value = "search", method = RequestMethod.GET)
+	@RequestMapping(value = "search.sh", method = RequestMethod.GET)
 	public String getSearchByID() throws Exception {
 		System.out.println("서치 실행");
 		return "member/search";
 	}
 	
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search.sh", method = RequestMethod.POST)
 	public String getSearchByID(BankMembersDTO bankMembersDTO, Model model) throws Exception {
 		System.out.println("post 서치 실행");
 		
 		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-		ArrayList<BankMembersDTO> ar = bankMembersDAO.getSerachByID(bankMembersDTO.getUsername());
+		System.out.println(bankMembersDTO.getUserName());
+		ArrayList<BankMembersDTO> ar = bankMembersDAO.getSerachByID(bankMembersDTO.getUserName());
 		
 		model.addAttribute("list", ar);
 		return "member/list";
 	}
 	
 	// /member/login 
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "login.sh", method = RequestMethod.GET)
 	public String login() {
 		System.out.println("로그인 실행");
 		return "member/login";
 		
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(BankMembersDTO bankMembersDTO) {
+	@RequestMapping(value = "login.sh", method = RequestMethod.POST)
+	public String login(HttpServletRequest request,BankMembersDTO bankMembersDTO) throws Exception {
 		System.out.println("DB 로그인 실행");
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
+		System.out.println(bankMembersDTO.getUserName());
+//		model.addAttribute("member",bankMembersDTO);
+		HttpSession session = request.getSession();
+		session.setAttribute("member", bankMembersDTO);
 		// "redirect: 다시 접속할 url주소(절대경로,상대경로)"
 		return "redirect:../";
 		
 	}
 	
 	// join /member/join
-	@RequestMapping(value = "join")
+	@RequestMapping(value = "join.sh")
 	public String join() {
 		
 		System.out.println("join GET 실행");
@@ -60,13 +77,13 @@ public class MemberController {
 	}
 	
 	// Post 
-	@RequestMapping(value = "join", method = RequestMethod.POST)
+	@RequestMapping(value = "join.sh", method = RequestMethod.POST)
 	public String join(HttpServletRequest request, String username) throws Exception {
 		System.out.println("join POST 실행");
 		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		BankMembersDTO bankMembersDTO = new BankMembersDTO();
-		bankMembersDTO.setUsername(username);
-		bankMembersDTO.setPassword(request.getParameter("password"));
+		bankMembersDTO.setUserName(username);
+		bankMembersDTO.setPassWord(request.getParameter("password"));
 		bankMembersDTO.setName(request.getParameter("name"));
 		bankMembersDTO.setEmail(request.getParameter("email"));
 		bankMembersDTO.setPhone(request.getParameter("phone"));
@@ -77,7 +94,7 @@ public class MemberController {
 			System.out.println("작동하지않음");
 		}
 //		
-		return "redirect:./login";
+		return "redirect:./login.sh";
 	}
 
 }

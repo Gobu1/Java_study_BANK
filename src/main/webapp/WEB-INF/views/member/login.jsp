@@ -8,10 +8,10 @@
 </head>
 <body>
 	<h1>Login page</h1>
-	<form action="./login" name="id" method="post">
+	<form action="./login.sh" name="id" method="post">
         <div class="container">
-            ID<input type="text">
-            PW<input type="password">
+            ID<input type="text" name="userName">
+            PW<input type="password" name="passWord">
             <input type="submit" value="로그인">
         </div>
         <div>

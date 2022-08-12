@@ -1,22 +1,23 @@
 package com.sh.start.BankMembers;
 
 public class BankMembersDTO {
-	private String username;
-	private String password;
+	private String userName;
+	private String passWord;
 	private String name;
 	private String email;
 	private String phone;
-	public String getUsername() {
-		return username;
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	public String getName() {
 		return name;
@@ -36,6 +37,9 @@ public class BankMembersDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+
+	
 	
 	
 	}

@@ -7,15 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>SEARCH</h2>
-	<form action="./search.sh" method="post">
+<h2>Product add</h2>
+	<form action="./add.sh" name="add" method="post">
 		<div>
-		<input type="text" name="userName">
-		<input type="submit" value="검색">
+			USERNAME<input type="text" name="USERNAME" value="${dto.userName}">
+			BOOKNUM<input type="text" name="BOOKNUM" value="${dto.bookNum}">
+		
 		</div>
-	
 	</form>
-
 
 </body>
 </html>

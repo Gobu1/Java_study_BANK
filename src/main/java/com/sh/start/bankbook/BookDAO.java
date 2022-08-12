@@ -3,7 +3,11 @@ package com.sh.start.bankbook;
 import java.util.ArrayList;
 
 public interface BookDAO {
-
+	
+	public int delete(BankBookDTO bankBookDTO)throws Exception;
+	
+	public int setUpdate(BankBookDTO bankBookDTO)throws Exception;
+	
 	//BankBook Table에 Insert
 	//BOOKNUM : 현재 시간을 밀리세컨즈로 변환해서 입력
 	//BOOKSALE : 1로 입력

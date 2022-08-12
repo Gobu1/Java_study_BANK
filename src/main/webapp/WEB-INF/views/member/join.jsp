@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>join page</h1>
-	<form action="./join" name="join" method="post" >
+	<form action="./join.sh" name="join" method="post" >
         <div>
             <h3>join page</h3>
             username<input type="text" name="username"><br>

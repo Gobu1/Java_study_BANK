@@ -9,6 +9,32 @@ import com.sh.start.utill.DBConnector;
 
 public class BankMembersDAO implements MembersDAO {
 	
+	public BankMembersDTO getLogin(BankMembersDTO bankMembersDTO)throws Exception{
+		
+		Connection con = DBConnector.getConnection();
+		
+		String sql ="SELECT USERNAME, NAME FROM BANKMEMBER WHERE USERNAME = ? AND "
+				+ "PASSWORD = ?";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, bankMembersDTO.getUserName());
+		st.setString(2, bankMembersDTO.getPassWord());
+		
+		ResultSet rs = st.executeQuery();
+		
+		if(rs.next()) {
+			bankMembersDTO = new BankMembersDTO();
+			bankMembersDTO.setUserName(rs.getString("USERNAME"));
+			bankMembersDTO.setName(rs.getString("NAME"));
+		}else {
+			bankMembersDTO=null;
+		}
+		
+		return bankMembersDTO;
+		
+	}
+	
 	//검색어를 입력해서 ID를 찾기
 	@Override
 	public ArrayList<BankMembersDTO> getSerachByID(String search) throws Exception {
@@ -27,8 +53,8 @@ public class BankMembersDAO implements MembersDAO {
 		while(rs.next())
 		{
 			BankMembersDTO bankMembersDTO = new BankMembersDTO();
-			bankMembersDTO.setUsername(rs.getString("USERNAME"));
-			bankMembersDTO.setPassword(rs.getString("PASSWORD"));
+			bankMembersDTO.setUserName(rs.getString("USERNAME"));
+			bankMembersDTO.setPassWord(rs.getString("PASSWORD"));
 			bankMembersDTO.setName(rs.getString("NAME"));
 			bankMembersDTO.setEmail(rs.getString("EMAIL"));
 			bankMembersDTO.setName(rs.getString("PHONE"));
@@ -55,8 +81,8 @@ public class BankMembersDAO implements MembersDAO {
 		
 		
 		
-		st.setString(1, bankMembersDTO.getUsername());
-		st.setString(2, bankMembersDTO.getPassword());
+		st.setString(1, bankMembersDTO.getUserName());
+		st.setString(2, bankMembersDTO.getPassWord());
 		st.setString(3, bankMembersDTO.getName());
 		st.setString(4, bankMembersDTO.getEmail());
 		st.setString(5, bankMembersDTO.getName());
