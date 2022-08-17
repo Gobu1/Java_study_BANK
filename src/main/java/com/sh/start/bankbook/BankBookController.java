@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="/bankbook/*")
 public class BankBookController {
 	
+	@Autowired
+	private BankBookDAO bankBookDAO;
+	@Autowired
+	private BankBookService bankBookService;
+	
 	@RequestMapping(value = "delete.sh", method = RequestMethod.POST)
 	public ModelAndView delete(BankBookDTO bankBookDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		System.out.println(bankBookDTO.getBookNum());
 		int result = bankBookDAO.delete(bankBookDTO);
 		mv.setViewName("redirect:./list.sh");
@@ -32,7 +37,6 @@ public class BankBookController {
 	@RequestMapping(value = "delete.sh", method = RequestMethod.GET)
 	public ModelAndView delete() throws Exception{
 		System.out.println("get. 삭제 실행");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		ArrayList<BankBookDTO> ar = bankBookDAO.getList();
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:./delete.sh");
@@ -44,7 +48,6 @@ public class BankBookController {
 	@RequestMapping(value = "update.sh", method = RequestMethod.POST)
 	public ModelAndView update(BankBookDTO bankBookDTO) throws Exception{
 		System.out.println("post. update 실행");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		ModelAndView mv = new ModelAndView();
 		int result = bankBookDAO.setUpdate(bankBookDTO);
 		System.out.println(result);
@@ -65,7 +68,6 @@ public class BankBookController {
 	@RequestMapping(value = "update.sh", method = RequestMethod.GET)
 	public void update(BankBookDTO bankBookDTO, Model model) throws Exception{
 		System.out.println("get. update 실행");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		System.out.println(bankBookDTO.getBookNum());
 		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
 		model.addAttribute("update",bankBookDTO);
@@ -83,7 +85,6 @@ public class BankBookController {
 	@RequestMapping(value = "add.sh", method = RequestMethod.POST)
 	public String add(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("add Post 실행");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		int result = bankBookDAO.setBankBook(bankBookDTO);
 		if (result==1) {
 			System.out.println("정상 add");
@@ -97,7 +98,6 @@ public class BankBookController {
 	@RequestMapping(value = "list.sh", method = RequestMethod.POST)
 	public ModelAndView list(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("리스트검색");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		ModelAndView mv = new ModelAndView();
 		bankBookDAO.getDetail(bankBookDTO);
 		mv.addObject("detail",bankBookDTO);
@@ -108,7 +108,6 @@ public class BankBookController {
 	@RequestMapping(value = "list.sh", method = RequestMethod.GET)
 	public String list(HttpServletRequest request) throws Exception {
 		System.out.println("리스트 목록");
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		ArrayList<BankBookDTO> ar = bankBookDAO.getList();
 		request.setAttribute("list", ar);
 		
@@ -127,7 +126,6 @@ public class BankBookController {
 	public ModelAndView detail(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("get 자세히");
 		ModelAndView mv = new ModelAndView();
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
 		mv.setViewName("bankbook/detail");
 		mv.addObject("detail",bankBookDTO);

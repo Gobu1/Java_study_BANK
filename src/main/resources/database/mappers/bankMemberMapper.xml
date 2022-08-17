@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 값은 사용할 DAO의 풀 패키지명 -->
+<mapper namespace="com.sh.start.BankMembers.BankMembersDAO">
+<!-- id는 DAO의 메서드명과 동일하게 -->
+	<select id="getLogin" parameterType="com.sh.start.BankMembers.BankMembersDTO" resultType="com.sh.start.BankMembers.BankMembersDTO">
+	SELECT USERNAME, NAME FROM BANKMEMBER WHERE USERNAME = #{userName} AND PASSWORD = #{passWord}
+	</select>
+	
+	<select id="getSearchByID" parameterType="java.lang.String" resultType="com.sh.start.BankMembers.BankMembersDTO">
+		SELECT * FROM BANKMEMBER WHERE USERNAME LIKE '%'||#{search}||'%' 
+	</select>
+	
+	<select id="setJoin" parameterType="java.lang.String" resultType="com.sh.start.BankMembers.BankMembersDTO">
+		INSERT INTO BANKMEMBER VALUES(#{userName}, #{passWord}, #{name}, #{email}, #{phone})
+	</select>
+
+</mapper>

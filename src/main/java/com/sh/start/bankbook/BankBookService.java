@@ -1,5 +1,47 @@
 package com.sh.start.bankbook;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class BankBookService {
+	
+	@Autowired
+	private BankBookDAO bankBookDAO;
+	
+	public int delete(BankBookDTO bankBookDTO)throws Exception{
+		return bankBookDAO.delete(bankBookDTO);
+	
+	}
+	
+	public int setUpdate(BankBookDTO bankBookDTO)throws Exception{
+		return bankBookDAO.setUpdate(bankBookDTO);
+	}
+	
+	//BankBook Table에 Insert
+	//BOOKNUM : 현재 시간을 밀리세컨즈로 변환해서 입력
+	//BOOKSALE : 1로 입력
+	public int setBankBook(BankBookDTO bankBookDTO)throws Exception{
+		return bankBookDAO.setBankBook(bankBookDTO);
+	}
+	
+	
+	//BankBook 모든 데이터를 조회 최신순으로
+	public ArrayList<BankBookDTO> getList()throws Exception{
+		return bankBookDAO.getList();
+	}
+	
+	//어느 하나의 row의 Sale 컬럼 수정
+	public int setChangeSale(BankBookDTO bankBookDTO)throws Exception{
+		return bankBookDAO.setChangeSale(bankBookDTO);
+	}
+	
+	//BookNum의 값으로 조회
+	public BankBookDTO getDetail(BankBookDTO bankBookDTO)throws Exception{
+		return bankBookDAO.getDetail(bankBookDTO);
+	}
+	
 
 }

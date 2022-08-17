@@ -1,10 +1,12 @@
 package com.sh.start.BankMembers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="/member/*")
 public class MemberController {
 	
+	@Autowired 
+	private BankMembersDAO bankMembersDAO;
+	@Autowired
+	private BankMembersService bankMembersService;
 	
 	@RequestMapping(value = "logout.sh", method = RequestMethod.GET)
 	public String logout(HttpSession session)throws Exception{
@@ -38,9 +44,8 @@ public class MemberController {
 	public String getSearchByID(BankMembersDTO bankMembersDTO, Model model) throws Exception {
 		System.out.println("post 서치 실행");
 		
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		System.out.println(bankMembersDTO.getUserName());
-		ArrayList<BankMembersDTO> ar = bankMembersDAO.getSerachByID(bankMembersDTO.getUserName());
+		List<BankMembersDTO> ar = bankMembersDAO.getSearchByID(bankMembersDTO.getUserName());
 		
 		model.addAttribute("list", ar);
 		return "member/list";
@@ -57,7 +62,6 @@ public class MemberController {
 	@RequestMapping(value = "login.sh", method = RequestMethod.POST)
 	public String login(HttpServletRequest request,BankMembersDTO bankMembersDTO) throws Exception {
 		System.out.println("DB 로그인 실행");
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
 		System.out.println(bankMembersDTO.getUserName());
 //		model.addAttribute("member",bankMembersDTO);
@@ -69,7 +73,7 @@ public class MemberController {
 	}
 	
 	// join /member/join
-	@RequestMapping(value = "join.sh")
+	@RequestMapping(value = "join.sh", method = RequestMethod.GET)
 	public String join() {
 		
 		System.out.println("join GET 실행");
@@ -80,7 +84,6 @@ public class MemberController {
 	@RequestMapping(value = "join.sh", method = RequestMethod.POST)
 	public String join(HttpServletRequest request, String username) throws Exception {
 		System.out.println("join POST 실행");
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		BankMembersDTO bankMembersDTO = new BankMembersDTO();
 		bankMembersDTO.setUserName(username);
 		bankMembersDTO.setPassWord(request.getParameter("password"));
